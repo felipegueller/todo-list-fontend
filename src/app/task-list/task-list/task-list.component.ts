@@ -16,6 +16,26 @@ export class TaskListComponent implements OnInit {
   constructor(private tasklistService: TaskListService) {}
 
   ngOnInit(): void {
+    this.getDataLists();
+  }
+
+  // Class methods
+
+  getDataLists() {
     this.taskList$ = this.tasklistService.getAllTaskList().pipe(take(1));
+  }
+
+  // updateList() {
+  //   this.tasklistService
+  //     .updateTaskList()
+  //     .pipe(take(1))
+  //     .subscribe((resp: TaskList) => console.log(resp));
+  // }
+
+  deleteTaskList(id: number) {
+    this.tasklistService
+      .deleteTaskList(id)
+      .pipe(take(1))
+      .subscribe((resp) => console.log(resp));
   }
 }
