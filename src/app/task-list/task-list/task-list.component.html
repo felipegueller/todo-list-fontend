@@ -1,1 +1,55 @@
-<p>task-list works!</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 d-flex justify-content-between align-items-center mb-4">
+      <h1>Lista de Tarefas</h1>
+
+      <button class="btn btn-sm btn-success" type="button">Nova lista</button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="table-responsive">
+        <table class="table table-sm table-bordered table-striped">
+          <thead class="thead-dark">
+            <th>Lista</th>
+            <th>Operações</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of taskList$ | async">
+              <td>{{ item.name }}</td>
+              <td>
+                <a
+                  class="btn btn-sm text-info"
+                  [routerLink]="['tasks']"
+                  aria-label="Visualizar tarefas"
+                  data-balloon-pos="up"
+                >
+                  <i class="fas fa-search"></i>
+                </a>
+
+                <button
+                  class="btn btn-sm text-warning"
+                  type="button"
+                  aria-label="Editar"
+                  data-balloon-pos="up"
+                >
+                  <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+
+                <button
+                  class="btn btn-sm text-danger"
+                  type="button"
+                  aria-label="Excluir"
+                  data-balloon-pos="up"
+                >
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
