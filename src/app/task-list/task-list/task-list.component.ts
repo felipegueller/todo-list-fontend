@@ -16,6 +16,7 @@ declare var $: any;
 export class TaskListComponent implements OnInit {
   taskList$!: Observable<TaskList[]>;
   render: boolean = true;
+  taskListToEdit: TaskList | null = null;
 
   constructor(private tasklistService: TaskListService) {}
 
@@ -29,25 +30,37 @@ export class TaskListComponent implements OnInit {
     this.taskList$ = this.tasklistService.getAllTaskList().pipe(take(1));
   }
 
-  // updateList() {
-  //   this.tasklistService
-  //     .updateTaskList()
-  //     .pipe(take(1))
-  //     .subscribe((resp: TaskList) => console.log(resp));
-  // }
+  createList(data: TaskList) {
+    this.tasklistService
+      .createTaskList(data)
+      .pipe(take(1))
+      .subscribe({
+        next: (resp) => console.log(resp),
+      });
+  }
+
+  updateList(data: TaskList) {
+    this.tasklistService
+      .updateTaskList(data)
+      .pipe(take(1))
+      .subscribe({
+        next: (resp) => console.log(resp),
+      });
+  }
 
   deleteTaskList(id: number) {
-    this.render = false
+    this.render = false;
     this.tasklistService
       .deleteTaskList(id)
       .pipe(take(1))
       .subscribe((_) => {
-        this.render = true
-        this.getDataLists()
+        this.render = true;
+        this.getDataLists();
       });
   }
 
-  open() {
-    console.log($('#taskListModal'))
+  setTaskListToEdit(data: TaskList) {
+    this.taskListToEdit = data
+    $('#taskListModal').modal('show');
   }
 }

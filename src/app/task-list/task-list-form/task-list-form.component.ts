@@ -27,15 +27,15 @@ declare var $: any;
   styleUrls: ['./task-list-form.component.css'],
 })
 export class TaskListFormComponent implements OnInit, OnChanges {
-  @Input() dataToUpdate!: TaskList;
-  @Output() firewallAdd: EventEmitter<TaskList> = new EventEmitter();
-  @Output() firewallUpdate: EventEmitter<TaskList> = new EventEmitter();
+  @Input() dataToUpdate!: TaskList | null;
+  @Output() taskListAdd: EventEmitter<TaskList> = new EventEmitter();
+  @Output() taskListUpdate: EventEmitter<TaskList> = new EventEmitter();
 
   reactiveForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder) {
     this.reactiveForm = this.formBuilder.group({
-      name: [null, [Validators.required]]
+      name: [null, [Validators.required]],
     });
   }
 
@@ -65,11 +65,11 @@ export class TaskListFormComponent implements OnInit, OnChanges {
 
   emitData(): void {
     const data: TaskList = { ...this.reactiveForm.value };
-    if (this.dataToUpdate) data['id'] = this.dataToUpdate.id
+    if (this.dataToUpdate?.id) data['id'] = this.dataToUpdate?.id;
 
     this.dataToUpdate
-      ? this.firewallUpdate.emit(data)
-      : this.firewallAdd.emit(data);
+      ? this.taskListUpdate.emit(data)
+      : this.taskListAdd.emit(data);
 
     resetForm(this.reactiveForm);
     this.closeModal();
@@ -85,9 +85,7 @@ export class TaskListFormComponent implements OnInit, OnChanges {
     const { name } = this.dataToUpdate || {};
 
     this.reactiveForm.patchValue({
-      name: name || ''
+      name: name || '',
     });
   }
-
-
 }
