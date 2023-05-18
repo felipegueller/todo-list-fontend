@@ -5,6 +5,9 @@ import { TaskListService } from './../task-list.service';
 
 import { TaskList } from './../../../interfaces/task-list.interface';
 
+import 'jquery';
+declare var $: any;
+
 @Component({
   selector: 'app-task-list',
   templateUrl: './task-list.component.html',
@@ -12,6 +15,7 @@ import { TaskList } from './../../../interfaces/task-list.interface';
 })
 export class TaskListComponent implements OnInit {
   taskList$!: Observable<TaskList[]>;
+  render: boolean = true;
 
   constructor(private tasklistService: TaskListService) {}
 
@@ -33,9 +37,17 @@ export class TaskListComponent implements OnInit {
   // }
 
   deleteTaskList(id: number) {
+    this.render = false
     this.tasklistService
       .deleteTaskList(id)
       .pipe(take(1))
-      .subscribe((resp) => console.log(resp));
+      .subscribe((_) => {
+        this.render = true
+        this.getDataLists()
+      });
+  }
+
+  open() {
+    console.log($('#taskListModal'))
   }
 }

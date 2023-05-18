@@ -1,9 +1,18 @@
+<app-task-list-form></app-task-list-form>
+
 <div class="container-fluid">
   <div class="row">
     <div class="col-12 d-flex justify-content-between align-items-center mb-4">
       <h1>Lista de Tarefas</h1>
 
-      <button class="btn btn-sm btn-success" type="button">Nova lista</button>
+      <button
+        class="btn btn-sm btn-success"
+        type="button"
+        data-toggle="modal"
+        data-target="#taskListModal"
+      >
+        Nova lista
+      </button>
     </div>
   </div>
 
@@ -33,6 +42,7 @@
                   type="button"
                   aria-label="Editar"
                   data-balloon-pos="up"
+                  (click)="open()"
                 >
                   <i class="fa-solid fa-pen-to-square"></i>
                 </button>
