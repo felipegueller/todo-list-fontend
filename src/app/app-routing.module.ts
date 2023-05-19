@@ -8,6 +8,11 @@ const routes: Routes = [
       import('./task-list/task-list.module').then((m) => m.TaskListModule),
   },
   {
+    path: ':id/task',
+    loadChildren: () =>
+      import('./tasks/tasks.module').then(m => m.TasksModule),
+  },
+  {
     path: '',
     pathMatch: 'full',
     redirectTo: 'task-list'

@@ -19,6 +19,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     FieldErrorControlModule,
   ],
   exports: [TaskListComponent],
-  providers: [TaskListService],
+  providers: [],
 })
 export class TaskListModule {}
