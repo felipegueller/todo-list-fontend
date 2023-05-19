@@ -1,3 +1,9 @@
+<app-tasks-form
+  [dataToUpdate]="taskToUpdate"
+  (taskAdd)="createTask($event)"
+  (taskUpdate)="updateTask($event)"
+></app-tasks-form>
+
 <div class="container-fluid">
   <div class="row">
     <div class="col-12 d-flex justify-content-between align-items-center mb-4">
@@ -7,7 +13,8 @@
         class="btn btn-sm btn-success"
         type="button"
         data-toggle="modal"
-        data-target="#taskListModal"
+        data-target="#tasksModal"
+        (click)="taskToUpdate = null"
       >
         Nova tarefa
       </button>
@@ -40,6 +47,7 @@
                   type="button"
                   aria-label="Editar"
                   data-balloon-pos="up"
+                  (click)="setTaskToEdit(item)"
                 >
                   <i class="fa-solid fa-pen-to-square"></i>
                 </button>

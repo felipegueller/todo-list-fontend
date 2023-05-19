@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { take } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
@@ -9,6 +8,9 @@ import { TaskService } from '../task.service';
 import { Task } from 'src/interfaces/task.interface';
 import { TaskList } from 'src/interfaces/task-list.interface';
 
+import 'jquery';
+declare var $: any;
+
 @Component({
   selector: 'app-tasks-list',
   templateUrl: './tasks-list.component.html',
@@ -18,6 +20,7 @@ export class TasksListComponent implements OnInit {
   render: boolean = false;
   tasklistId!: number;
   tasksList: Task[] = [];
+  taskToUpdate: Task | null = null;
 
   constructor(
     private taskService: TaskService,
@@ -42,6 +45,34 @@ export class TasksListComponent implements OnInit {
       });
   }
 
+  createTask(data: Task) {
+    data.list_id = this.tasklistId
+    this.render = false;
+    this.taskService
+      .createTask(data)
+      .pipe(take(1))
+      .subscribe({
+        next: (resp) => {
+          this.render = true;
+          console.log(resp);
+        },
+      });
+  }
+
+  updateTask(data: Task) {
+    data.list_id = this.tasklistId
+    this.render = false;
+    this.taskService
+      .updateTask(data)
+      .pipe(take(1))
+      .subscribe({
+        next: (resp) => {
+          this.render = true;
+          console.log(resp);
+        },
+      });
+  }
+
   deleteTask(id: number): void {
     this.render = false;
     this.taskService
@@ -53,5 +84,10 @@ export class TasksListComponent implements OnInit {
           console.log(resp);
         },
       });
+  }
+
+  setTaskToEdit(data: Task) {
+    this.taskToUpdate = data;
+    $('#tasksModal').modal('show');
   }
 }

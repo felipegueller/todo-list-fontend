@@ -1,1 +1,97 @@
-<p>tasks-form works!</p>
+<div
+  class="modal fade"
+  id="tasksModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          {{ dataToUpdate ? "Atualizar" : "Adicionar" }} tarefa
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <form [formGroup]="reactiveForm" (ngSubmit)="onSubmit()">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-12 col-sm-6">
+              <div class="form-group">
+                <label for="title">
+                  Título
+                  <span class="text-danger">*</span>
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  [ngClass]="applyInputValidationClasses('title')"
+                  id="title"
+                  formControlName="title"
+                  placeholder="Informe um título"
+                />
+                <app-field-error-control
+                  [inputField]="getControl('title')"
+                ></app-field-error-control>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6">
+              <div class="form-group">
+                <label for="conclusion_date"> Data de conclusão </label>
+                <input
+                  type="date"
+                  class="form-control"
+                  [ngClass]="applyInputValidationClasses('conclusion_date')"
+                  id="conclusion_date"
+                  formControlName="conclusion_date"
+                />
+                <app-field-error-control
+                  [inputField]="getControl('conclusion_date')"
+                ></app-field-error-control>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <label for="description">
+                  Descrição
+                  <span class="text-danger">*</span>
+                </label>
+                <textarea
+                  class="form-control"
+                  [ngClass]="applyInputValidationClasses('description')"
+                  id="description"
+                  formControlName="description"
+                  placeholder="Descreva a tarefa"
+                ></textarea>
+                <app-field-error-control
+                  [inputField]="getControl('description')"
+                ></app-field-error-control>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-light"
+            aria-label="close"
+            data-dismiss="modal"
+          >
+            Cancelar
+          </button>
+
+          <button type="submit" class="btn btn-dark">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
