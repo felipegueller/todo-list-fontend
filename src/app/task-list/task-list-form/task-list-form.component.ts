@@ -44,7 +44,6 @@ export class TaskListFormComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     resetForm(this.reactiveForm);
 
-    this.dataToUpdate = changes?.['dataToUpdate']?.currentValue;
     if (this.dataToUpdate) this.setUpdateDataOnForm();
   }
 
